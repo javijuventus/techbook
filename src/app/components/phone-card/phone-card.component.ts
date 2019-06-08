@@ -1,7 +1,7 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { Phone } from '../../interfaces/interfaces';
 import { DetalleComponent } from '../detalle/detalle.component';
-import { Router } from '@angular/router';
+import { Router, NavigationExtras } from '@angular/router';
 
 @Component({
   selector: 'app-phone-card',
@@ -26,9 +26,13 @@ export class PhoneCardComponent implements OnInit {
     console.log(event);
   }
 
-  async verDetalle(phone: Phone) {
-
-    this.router.navigate(['/detail-phone', { phone }]);
+   verDetalle(phone: Phone) {
+   const navigationExtras: NavigationExtras = {
+    state: {
+      phone: this.phone
+    }
+  };
+   this.router.navigate(['detail-phone'], navigationExtras);
+}
 
   }
-}

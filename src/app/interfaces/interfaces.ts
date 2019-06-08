@@ -2,6 +2,7 @@ export interface RespuestaMovil {
   ok: boolean;
   pagina?: number;
   phones: Phone[];
+  camara?: Camara;
 }
 
 export interface Phone {

@@ -1,6 +1,5 @@
-import { Component, OnInit, Input } from '@angular/core';
-import { Phone } from 'src/app/interfaces/interfaces';
-import { IonSegment } from '@ionic/angular';
+import { Component, OnInit, Input, Output } from '@angular/core';
+import { RespuestaMovil } from '../../interfaces/interfaces';
 
 @Component({
   selector: 'app-phone-grid',
@@ -9,7 +8,7 @@ import { IonSegment } from '@ionic/angular';
 })
 export class PhoneGridComponent implements OnInit {
 
-  @Input() phones: Phone[] = [];
+  @Input() phones: RespuestaMovil[] = [];
   @Input() segment;
 
   categoria: string;
@@ -19,6 +18,7 @@ export class PhoneGridComponent implements OnInit {
   ngOnInit() {
     this.categoria = this.segment.value;
     console.log('this.categoria', this.categoria);
+
   }
 
 }

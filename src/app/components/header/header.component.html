@@ -1,0 +1,26 @@
+<ion-toolbar color="dark">
+    <ion-item
+      slot="start"
+      mode="md"
+      lines="none"
+      color="dark"
+      routerLink="/"
+      routerDirection="root"
+    >
+      <ion-label>
+        techbook
+      </ion-label>
+    </ion-item>
+
+    <ion-buttons slot="end">
+      <ion-button routerLink="/login" routerDirection="forward">
+        Iniciar Sesión
+        <ion-icon ios="ios-contact" md="md-contact"></ion-icon>
+      </ion-button>
+      <ion-button routerLink="/" routerDirection="root">
+        Salir
+        <ion-icon name="exit"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+
+  </ion-toolbar>

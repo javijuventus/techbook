@@ -22,14 +22,14 @@ export class PhonesService {
     return this.http.get<RespuestaMovil>(`${URL}/phones/latest`);
   }
 
-  getTopHeadlinesCategoria(categoria: string, event?, phoneId?: string) {
+  getTopHeadlinesCategoria(categoria: string, phoneId?: string) {
 
-    /*if (this.categoriaActual === categoria) {
+    if (this.categoriaActual === categoria) {
       this.paginaPhones++;
     } else {
       this.paginaPhones = 1;
       this.categoriaActual = categoria;
-    }*/
+    }
     let query: string;
 
     switch (categoria) {
@@ -59,7 +59,7 @@ export class PhonesService {
         query = 'phones/bateria';
         break;
     }
-    return this.http.get<RespuestaMovil>(`${URL}/${query}`);
+    return this.http.get<RespuestaMovil>(`${URL}/${query}/?pagina=${this.paginaPhones}`);
   }
 
   getPhoneDetalle(id: string) {

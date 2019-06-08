@@ -15,14 +15,14 @@
     <ion-item   > 
       <ion-icon name="heart" color="danger"></ion-icon>
       <ion-note slot="end" color="primary">
-        <ion-badge color="primary">{{ phone.num_positivos }}</ion-badge>
+        <ion-badge color="primary" mode="ios">{{ phone.num_positivos }}</ion-badge>
       </ion-note>
     </ion-item>
     <!--*ngIf="categoria === 'Top Dislikes' || categoria === 'Novedades'"-->
     <ion-item class="dislike">
       <ion-icon name="heart-dislike" color="dark"></ion-icon>
       <ion-note slot="end" color="primary">
-          <ion-badge color="primary">{{ phone.num_negativos }}</ion-badge>
+          <ion-badge color="primary" mode="ios" >{{ phone.num_negativos }}</ion-badge>
       </ion-note>
     </ion-item>
     <rating

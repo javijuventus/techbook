@@ -1,6 +1,8 @@
 import { Component, OnInit, Input } from '@angular/core';
-import { Phone } from '../../interfaces/interfaces';
-import { Router } from '@angular/router';
+import { Phone, Camara } from '../../interfaces/interfaces';
+import { Router, ActivatedRoute, Params } from '@angular/router';
+import { PhonesService } from '../../services/phones.service';
+import { JsonPipe } from '@angular/common';
 
 @Component({
   selector: 'app-detail-phone',
@@ -9,16 +11,26 @@ import { Router } from '@angular/router';
 })
 export class DetailPhonePage implements OnInit {
 
-  @Input() phone;
-
+  data: any;
+  phone;
   avatarSlide = {
     slidesPerView: 3.5
   };
 
-  constructor( private router: Router ) { }
+  constructor(private route: ActivatedRoute,
+              private router: Router) {
+
+    this.route.queryParams.subscribe(params => {
+      if (this.router.getCurrentNavigation().extras.state) {
+        this.data = this.router.getCurrentNavigation().extras.state.phone;
+        console.log('data', this.data);
+        this.phone = this.data;
+      }
+    });
+  }
 
   ngOnInit() {
-    console.log('Estoy en page detalle');
+    
   }
 
   regresar() {

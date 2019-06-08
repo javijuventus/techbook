@@ -8,31 +8,36 @@ import { IonicRatingModule } from 'ionic4-rating';
 import { DetalleComponent } from './detalle/detalle.component';
 import { TopRatingsComponent } from './top-ratings/top-ratings.component';
 import { LoginComponent } from './login/login.component';
+import { AvatarSelectorComponent } from './avatar-selector/avatar-selector.component';
+import { HeaderComponent } from './header/header.component';
+import { RouterModule } from '@angular/router';
 
 
 @NgModule({
-  entryComponents: [
-    DetalleComponent,
-    LoginComponent
-  ],
   declarations: [
     PhoneCardComponent,
     PhoneGridComponent,
     DetalleComponent,
     TopRatingsComponent,
-    LoginComponent
+    LoginComponent,
+    AvatarSelectorComponent,
+    HeaderComponent
   ],
   imports: [
     CommonModule,
     IonicModule,
     PipesModule,
-    IonicRatingModule
+    IonicRatingModule,
+    RouterModule
   ],
   exports:
   [
     PhoneGridComponent,
     DetalleComponent,
-    LoginComponent
+    LoginComponent,
+    AvatarSelectorComponent,
+    PhoneCardComponent,
+    HeaderComponent
   ]
 })
 export class ComponentsModule { }
