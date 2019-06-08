@@ -1,5 +1,7 @@
 {
   "name": "techbook",
-  "integrations": {},
+  "integrations": {
+    "cordova": {}
+  },
   "type": "angular"
 }

@@ -1,0 +1,45 @@
+<ion-header no-border>
+  <ion-toolbar  color="dark">
+     <ion-title text-center>
+          techbook
+        </ion-title>
+        <ion-buttons slot="end">
+            <ion-button (click)="login()"
+              color="primary">
+              <ion-icon ios="ios-contact" md="md-contact"></ion-icon>
+            </ion-button>
+          </ion-buttons>
+        
+  </ion-toolbar>
+  <ion-segment scrollable mode="md" color="primary"
+        (ionChange) = "cambioCategoria( $event )">
+      
+        <ion-segment-button mode="md" *ngFor="let categoria of categorias"
+         [value]="categoria">
+          <ion-label text-capitalize>{{categoria}}</ion-label>
+        </ion-segment-button>
+      
+      </ion-segment>
+</ion-header>
+
+<ion-content>
+  <!-- Refresher -->
+  <ion-refresher
+    slot="fixed"
+    [disabled]="!refresh"
+    (ionRefresh)="recargar($event)"
+  >
+    <ion-refresher-content></ion-refresher-content>
+  </ion-refresher>
+
+  <app-phone-grid [segment]="segment" [phones]="phones"></app-phone-grid>
+
+  <!-- Infinite Scroll-->
+  <ion-infinite-scroll
+    [disabled]="!habilitado"
+    threshold="150px"
+    (ionInfinite)="siguientes($event)"
+  >
+    <ion-infinite-scroll-content> </ion-infinite-scroll-content>
+  </ion-infinite-scroll>
+</ion-content>

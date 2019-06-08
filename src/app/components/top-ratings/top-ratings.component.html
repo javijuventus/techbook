@@ -1,0 +1,26 @@
+<ion-card>
+    <ion-card-header>
+      <ion-card-subtitle text-center>
+        <ion-label>{{ phone.marca }}</ion-label>
+      </ion-card-subtitle>
+      <ion-card-title text-center>
+        {{ phone.modelo }}
+      </ion-card-title>
+    </ion-card-header>
+    <ion-card-content>
+      <img [src]="phone.img[0] | imagen: phone._id | imageSanitazer" />
+  
+      <ion-item>
+        <ion-icon name="md-calendar" color="primary"></ion-icon>
+        <ion-note slot="end" color="primary">
+          {{ phone.fechaLanzamiento }}
+        </ion-note>
+      </ion-item>
+      <ion-item class="dislike">
+        <ion-icon name="ios-thumbs-up" color="primary"></ion-icon>
+        <ion-note slot="end" color="primary">
+          {{ phone.total }}
+        </ion-note>
+      </ion-item>
+    </ion-card-content>
+  </ion-card>
