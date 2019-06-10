@@ -2,6 +2,8 @@ import { Injectable, EventEmitter } from '@angular/core';
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { environment } from 'src/environments/environment';
 import { RespuestaMovil, Phone } from '../interfaces/interfaces';
+import { Storage } from '@ionic/storage';
+import { NavController } from '@ionic/angular';
 
 const URL = environment.url;
 
@@ -13,12 +15,12 @@ export class PhonesService {
   paginaPhones = 0;
 
   categoriaActual;
-
+  private phone: Phone;
   nuevoPhone = new EventEmitter<Phone>();
 
-  constructor(private http: HttpClient) {
+  constructor(private http: HttpClient, private storage: Storage,  private navCtrl: NavController) {
     this.categoriaActual = 'Top Valorados';
-   }
+  }
 
   getAllPhones() {
     return this.http.get<RespuestaMovil>(`${URL}/phones/popular`);
@@ -38,7 +40,7 @@ export class PhonesService {
       case 'Top Valorados':
         query = 'phones/popular';
         break;
-        case 'Top Nuevos':
+      case 'Top Nuevos':
         query = 'phones/latest';
         break;
       case 'Top Likes':
@@ -62,8 +64,8 @@ export class PhonesService {
       case 'Top Batería':
         query = 'phones/bateria';
         break;
-        default:
-          query = 'phones/popular';
+      default:
+        query = 'phones/popular';
     }
     return this.http.get<RespuestaMovil>(`${URL}/${query}/?pagina=${this.paginaPhones}`);
   }
@@ -101,8 +103,47 @@ export class PhonesService {
 
   }
 
-}
 
+
+  getPhone() {
+    if (this.phone._id) {
+      this.validaPhone();
+    }
+    return  this.phone ;
+
+  }
+  async eliminarPhoneStorage() {
+
+    this.storage.remove('phone');
+  }
+
+  async guardarPhone(phone: Phone) {
+
+    this.phone = phone;
+    await this.storage.set('phone', phone);
+
+    await this.validaPhone();
+
+  }
+
+  async cargarPhone() {  // Leerlo del storage
+    this.phone = await this.storage.get('phone') || null;
+  }
+
+  async validaPhone(): Promise<boolean> {
+
+    await this.cargarPhone();
+
+    if (!this.phone) {
+      this.navCtrl.navigateRoot('main/tabs/tab1');
+      console.log('False');
+      return Promise.resolve(false);
+    } else {
+      console.log('True');
+      return Promise.resolve(true);
+    }
+  }
+}
 /*crearPhone( phone ) {
   const headers = new HttpHeaders({
     'x-token': this.usuarioService.token

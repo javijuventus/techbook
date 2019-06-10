@@ -53,6 +53,7 @@ export class Tab2Page implements OnInit {
        value: phone
      }
    };
+    this.phonesService.guardarPhone(phone);
     this.router.navigate(['detail-phone'], navigationExtras);
  }
 

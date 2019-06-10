@@ -1,7 +1,8 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { Phone } from '../../interfaces/interfaces';
-import { DetalleComponent } from '../detalle/detalle.component';
 import { Router, NavigationExtras } from '@angular/router';
+import { Storage } from '@ionic/storage';
+import { PhonesService } from '../../services/phones.service';
 
 @Component({
   selector: 'app-phone-card',
@@ -14,7 +15,7 @@ export class PhoneCardComponent implements OnInit {
 
   @Input() catSel: string;
 
-  constructor(private router: Router) { }
+  constructor(private router: Router, private phonesService: PhonesService) { }
 
   ngOnInit() {  }
 
@@ -27,6 +28,7 @@ export class PhoneCardComponent implements OnInit {
       value: phone
     }
   };
+   this.phonesService.guardarPhone(phone);
    this.router.navigate(['detail-phone'], navigationExtras);
 }
 

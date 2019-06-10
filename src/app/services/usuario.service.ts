@@ -83,7 +83,6 @@ export class UsuarioService {
 
   async guardarToken(token: any) {
 
-    console.log('MI TOKEN', token);
     this.token = token;
     await this.storage.set('token', token);
 
@@ -93,7 +92,6 @@ export class UsuarioService {
 
   async cargarToken() {  // Leerlo del storage
     this.token = await this.storage.get('token') || null;
-    console.log('Obtengo el token', this.token);
   }
 
   async validaToken(): Promise<boolean> {

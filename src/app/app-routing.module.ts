@@ -1,11 +1,12 @@
 import { NgModule } from '@angular/core';
 import { PreloadAllModules, RouterModule, Routes } from '@angular/router';
 import { UsuarioGuard } from './guards/usuario.guard';
+import { PhoneGuard } from './guards/phone.guard';
 
 const routes: Routes = [
   { path: 'main', loadChildren: './pages/tabs/tabs.module#TabsPageModule', canLoad: [ UsuarioGuard ] },
+  { path: 'detail-phone', loadChildren: './pages/detail-phone/detail-phone.module#DetailPhonePageModule', canLoad: [ PhoneGuard ], },
   { path: 'login', loadChildren: './pages/login/login.module#LoginPageModule' },
-  { path: 'detail-phone', loadChildren: './pages/detail-phone/detail-phone.module#DetailPhonePageModule', canLoad: [ UsuarioGuard ] },
   {
     path: '',
     pathMatch: 'full',

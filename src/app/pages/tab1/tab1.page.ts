@@ -51,7 +51,7 @@ export class Tab1Page implements OnInit {
   cargarPhones(categoria: string, event?) {
     this.phonesService.getTopHeadlinesCategoria(this.categoriaActual).subscribe((data: RespuestaMovil) => {
       this.phones.push(...data.phones);
-      if (data.phones.length === 0) {
+      if (data.phones.length === 0 && event !== undefined) {
         event.target.disabled = true;
         event.target.complete();
         return;

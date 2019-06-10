@@ -5,7 +5,6 @@ import { PhoneGridComponent } from './phone-grid/phone-grid.component';
 import { IonicModule } from '@ionic/angular';
 import { PipesModule } from '../pipes/pipes.module';
 import { IonicRatingModule } from 'ionic4-rating';
-import { DetalleComponent } from './detalle/detalle.component';
 import { TopRatingsComponent } from './top-ratings/top-ratings.component';
 import { AvatarSelectorComponent } from './avatar-selector/avatar-selector.component';
 import { HeaderComponent } from './header/header.component';
@@ -16,7 +15,6 @@ import { RouterModule } from '@angular/router';
   declarations: [
     PhoneCardComponent,
     PhoneGridComponent,
-    DetalleComponent,
     TopRatingsComponent,
     AvatarSelectorComponent,
     HeaderComponent
@@ -31,7 +29,6 @@ import { RouterModule } from '@angular/router';
   exports:
   [
     PhoneGridComponent,
-    DetalleComponent,
     AvatarSelectorComponent,
     PhoneCardComponent,
     HeaderComponent
