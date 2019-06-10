@@ -60,7 +60,6 @@ export class Tab2Page implements OnInit {
   cargarTodos() {
     this.phonesService.getAllPhones().subscribe(resp => {
       this.phonesBuscar.push(...resp.phones);
-      console.log(this.phonesBuscar);
     });
   }
 

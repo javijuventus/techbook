@@ -24,8 +24,7 @@ export class DetailPhonePage implements OnInit {
       if (this.router.getCurrentNavigation().extras.state) {
         this.data = this.router.getCurrentNavigation().extras.state.value;
         this.phone = this.data;
-        console.log('data', this.data);
-        console.log('Phone consctructor', this.phone);
+
       }
     });
   }
@@ -34,10 +33,8 @@ export class DetailPhonePage implements OnInit {
 
     if (this.phone === undefined) {
       this.phone = this.phoneService.getPhone();
-      console.log('Valor del storage', this.phone);
     }
     if (this.phone === undefined) {
-      console.log('Saliendo..');
       this.regresar();
     }
   }

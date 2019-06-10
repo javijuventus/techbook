@@ -11,7 +11,12 @@ const routes: Routes = [
     path: '',
     pathMatch: 'full',
     redirectTo: 'login'
-  }
+  },
+  { path: 'not-found', loadChildren: './pages/not-found/not-found.module#NotFoundPageModule' },
+  {
+    path: '**',
+    redirectTo: 'not-found'
+  },
 ];
 @NgModule({
   imports: [

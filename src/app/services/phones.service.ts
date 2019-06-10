@@ -136,10 +136,8 @@ export class PhonesService {
 
     if (!this.phone) {
       this.navCtrl.navigateRoot('main/tabs/tab1');
-      console.log('False');
       return Promise.resolve(false);
     } else {
-      console.log('True');
       return Promise.resolve(true);
     }
   }

@@ -17,7 +17,7 @@ import { RouterModule } from '@angular/router';
     PhoneGridComponent,
     TopRatingsComponent,
     AvatarSelectorComponent,
-    HeaderComponent
+    HeaderComponent,
   ],
   imports: [
     CommonModule,
@@ -31,7 +31,7 @@ import { RouterModule } from '@angular/router';
     PhoneGridComponent,
     AvatarSelectorComponent,
     PhoneCardComponent,
-    HeaderComponent
+    HeaderComponent,
   ]
 })
 export class ComponentsModule { }

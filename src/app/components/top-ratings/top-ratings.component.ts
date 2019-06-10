@@ -1,6 +1,5 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { ModalController } from '@ionic/angular';
-import { DetalleComponent } from '../detalle/detalle.component';
 import { Phone } from 'src/app/interfaces/interfaces';
 import { PhonesService } from '../../services/phones.service';
 import { RespuestaMovil } from '../../interfaces/interfaces';
