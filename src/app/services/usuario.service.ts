@@ -61,8 +61,6 @@ export class UsuarioService {
           if (resp['ok']) {
            // tslint:disable-next-line:no-string-literal
            await this.guardarToken(resp['token']);
-           // tslint:disable-next-line:no-string-literal
-           console.log('Token guardado', resp['token']);
            resolve(true);
           } else {
             this.token = null;
