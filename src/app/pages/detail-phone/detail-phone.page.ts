@@ -44,4 +44,7 @@ export class DetailPhonePage implements OnInit {
     this.location.back();
   }
 
+  onRateChange($event) {
+  }
+
 }

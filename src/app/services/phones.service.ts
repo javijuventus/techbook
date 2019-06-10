@@ -103,8 +103,6 @@ export class PhonesService {
 
   }
 
-
-
   getPhone() {
     if (this.phone._id) {
       this.validaPhone();

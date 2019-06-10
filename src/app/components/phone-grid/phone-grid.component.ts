@@ -9,15 +9,10 @@ import { RespuestaMovil } from '../../interfaces/interfaces';
 export class PhoneGridComponent implements OnInit {
 
   @Input() phones: RespuestaMovil[] = [];
-  @Input() segment;
+  @Input() categoria;
+  constructor() {}
 
-  categoria: string;
-
-  constructor() { }
-
-  ngOnInit() {
-    this.categoria = this.segment.value;
-  }
+  ngOnInit() { }
 
 
 }

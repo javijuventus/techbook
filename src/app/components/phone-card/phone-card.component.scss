@@ -10,9 +10,19 @@ ion-card-title  {
   }
   
   ion-card {
+    height: 340px;
+    width: 233px;
+    margin:auto;
+  }
+
+  .cambioAltura{
     height: 420px;
     width: 233px;
     margin:auto;
+  }
+
+  .espacioSuperiorItem {
+    padding-top: 5px;
   }
 
   rating {

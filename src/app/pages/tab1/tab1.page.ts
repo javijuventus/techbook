@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild, Output, EventEmitter } from '@angular/core';
+import { Component, OnInit, ViewChild, Output, EventEmitter, Input } from '@angular/core';
 import { PhonesService } from '../../services/phones.service';
 import { Phone, RespuestaMovil } from '../../interfaces/interfaces';
 import { IonSegment, IonContent, IonInfiniteScroll, ModalController } from '@ionic/angular';
@@ -18,18 +18,17 @@ export class Tab1Page implements OnInit {
   // tslint:disable-next-line:max-line-length
   categorias = ['Top Valorados', 'Top Nuevos', 'Top Likes', 'Top Dislikes', 'Top Cámara', 'Top CPU', 'Top Pantalla', 'Top Diseño', 'Top Batería'];
 
-  categoriaActual;
-
-  @Output() categoria = new EventEmitter<string>();
   phones: Phone[] = [];
   habilitado = true;
   refresh = true;
+
+  @Input() categoria: string;
 
   constructor(private phonesService: PhonesService) { }
 
   ngOnInit() {
     this.segment.value = this.categorias[0];
-
+    this.categoria = this.segment.value;
     this.cargarPhones(this.categorias[0]);
   }
 
@@ -39,17 +38,15 @@ export class Tab1Page implements OnInit {
   }
 
   cambioCategoria( event ) {
-    console.log(event.detail.value);
-    this.categoriaActual = event.detail.value;
     this.phones = [];
+    this.categoria = event.detail.value;
     this.infiniteScroll.disabled = false;
     this.cargarPhones(event.detail.value);
-    this.categoria.emit(event.detail.value);
     this.content.scrollToTop();
   }
 
   cargarPhones(categoria: string, event?) {
-    this.phonesService.getTopHeadlinesCategoria(this.categoriaActual).subscribe((data: RespuestaMovil) => {
+    this.phonesService.getTopHeadlinesCategoria(this.categoria).subscribe((data: RespuestaMovil) => {
       this.phones.push(...data.phones);
       if (data.phones.length === 0 && event !== undefined) {
         event.target.disabled = true;
@@ -65,7 +62,7 @@ export class Tab1Page implements OnInit {
   recargar(event?) {
     this.phones = [];
     this.phonesService.paginaPhones = 0;
-    this.cargarPhones(this.categoriaActual, event);
+    this.cargarPhones(this.categoria, event);
     this.refresh = false;
     setTimeout(() => {
       this.refresh = true;

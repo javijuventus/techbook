@@ -1,9 +1,8 @@
-import { Component, OnInit, Input } from '@angular/core';
-import { ModalController } from '@ionic/angular';
-import { Phone } from 'src/app/interfaces/interfaces';
+import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
+import { Phone } from '../../interfaces/interfaces';
+import { Router, NavigationExtras } from '@angular/router';
 import { PhonesService } from '../../services/phones.service';
-import { RespuestaMovil } from '../../interfaces/interfaces';
-import { Router } from '@angular/router';
+
 
 @Component({
   selector: 'app-top-ratings',
@@ -13,14 +12,25 @@ import { Router } from '@angular/router';
 export class TopRatingsComponent implements OnInit {
 
   @Input() phone;
-  @Input() catSel: string;
+  @Input() segment;
 
+  @Input() categoria: string;
 
-  constructor( private router: Router) { }
+  constructor(private router: Router, private phonesService: PhonesService) { }
 
   ngOnInit() {}
 
 
-
+  verDetalle(phone: Phone) {
+    const navigationExtras: NavigationExtras = {
+      state: {
+        value: phone
+      }
+    };
+    this.phonesService.guardarPhone(phone);
+    this.router.navigate(['detail-phone'], navigationExtras);
+  }
 
 }
+
+

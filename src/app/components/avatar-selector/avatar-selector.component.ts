@@ -43,6 +43,10 @@ export class AvatarSelectorComponent implements OnInit {
       img: 'av-8.png',
       seleccionado: false
     },
+    {
+      img: 'av-9.png',
+      seleccionado: false
+    }
   ];
 
   avatarSlide = {

@@ -2,12 +2,30 @@ ion-card-title  {
     font-size: 16px;
   }
  
-  .dislike{
-    padding-bottom:12px;
-  }
-  
   ion-card {
-    height: 400px;
+    height: 340px;
     width: 233px;
     margin: 10px auto;
   }
+  ion-card-title  {
+    font-size: 16px;
+  }
+ 
+
+  .espacioSuperiorItem {
+    padding-top: 15px;
+  }
+
+  rating {
+    ion-icon {
+      color: gray;
+  
+      &.filled {
+        color: #ffb400;
+      }
+    }
+    
+  }
+
+
+

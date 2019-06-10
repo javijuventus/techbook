@@ -10,11 +10,11 @@
     >
       <app-phone-card 
       *ngIf=" categoria === 'Top Valorados' || categoria === 'Top Nuevos' || categoria === 'Top Likes' || categoria === 'Top Dislikes' "
-      [phone]="phone"></app-phone-card>
+      [phone]="phone" [categoria]="categoria"></app-phone-card>
 
       <app-top-ratings 
-      *ngIf="categoria === 'Top Camara' || categoria === 'Top CPU'  || categoria === 'Top Pantalla' || categoria === 'Top Diseño' || categoria === 'Top Procesador' "
-      [phone]="phone"></app-top-ratings >
+      *ngIf="categoria === 'Top Cámara' || categoria === 'Top CPU'  || categoria === 'Top Pantalla' || categoria === 'Top Diseño' || categoria === 'Top Batería' "
+      [phone]="phone" [categoria]="categoria"></app-top-ratings >
     </ion-col>
   </ion-row>
 </ion-grid>

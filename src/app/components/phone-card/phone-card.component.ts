@@ -1,7 +1,6 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { Phone } from '../../interfaces/interfaces';
 import { Router, NavigationExtras } from '@angular/router';
-import { Storage } from '@ionic/storage';
 import { PhonesService } from '../../services/phones.service';
 
 @Component({
@@ -12,15 +11,14 @@ import { PhonesService } from '../../services/phones.service';
 export class PhoneCardComponent implements OnInit {
 
   @Input() phone;
+  @Input() segment;
 
-  @Input() catSel: string;
+  @Input() categoria: string;
 
   constructor(private router: Router, private phonesService: PhonesService) { }
 
-  ngOnInit() {  }
-
-  onRateChange(event) {
-  }
+  ngOnInit() {
+    }
 
    verDetalle(phone: Phone) {
    const navigationExtras: NavigationExtras = {
