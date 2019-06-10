@@ -22,16 +22,13 @@ export class DetailPhonePage implements OnInit {
 
     this.route.queryParams.subscribe(params => {
       if (this.router.getCurrentNavigation().extras.state) {
-        this.data = this.router.getCurrentNavigation().extras.state.phone;
-        console.log('data', this.data);
+        this.data = this.router.getCurrentNavigation().extras.state.value;
         this.phone = this.data;
       }
     });
   }
 
-  ngOnInit() {
-    
-  }
+  ngOnInit() {}
 
   regresar() {
     this.router.navigate(['']);

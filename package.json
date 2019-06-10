@@ -27,6 +27,7 @@
     "@ionic/angular": "^4.1.0",
     "@ionic/storage": "^2.2.0",
     "cordova-plugin-file-transfer": "1.7.1",
+    "cordova-sqlite-storage": "3.2.0",
     "core-js": "^2.5.4",
     "ionic4-rating": "^1.0.9",
     "querystringify": "^2.1.1",
@@ -63,7 +64,8 @@
   "description": "Aplcicación de opiniones y valoraciones sobre smartphones",
   "cordova": {
     "plugins": {
-      "cordova-plugin-file-transfer": {}
+      "cordova-plugin-file-transfer": {},
+      "cordova-sqlite-storage": {}
     }
   }
 }

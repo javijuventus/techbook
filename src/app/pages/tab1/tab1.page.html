@@ -4,7 +4,7 @@
     scrollable
     mode="md"
     color="primary"
-    (ionChange)="cambioCategoria($event)"
+    (ionChange)="cambioCategoria( $event )"
   >
     <ion-segment-button
       mode="md"
@@ -21,7 +21,7 @@
   <ion-refresher
     slot="fixed"
     [disabled]="!refresh"
-    (ionRefresh)="recargar($event )"
+    (ionRefresh)="recargar( $event )"
   >
     <ion-refresher-content></ion-refresher-content>
   </ion-refresher>

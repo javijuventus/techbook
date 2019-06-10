@@ -15,7 +15,8 @@ export class UsuarioService {
   token: string = null;
   private usuario: Usuario = {};
 
-  constructor(private http: HttpClient, private storage: Storage,
+  constructor(private http: HttpClient,
+              private storage: Storage,
               private navCtrl: NavController) { }
 
   login(email: string, password: string) {
@@ -25,8 +26,6 @@ export class UsuarioService {
 
       this.http.post(`${URL}/user/login`, data)
         .subscribe(resp => {
-          console.log(resp);
-
           // tslint:disable-next-line:no-string-literal
           if (resp['ok']) {
             // tslint:disable-next-line:no-string-literal
@@ -58,12 +57,12 @@ export class UsuarioService {
 
       this.http.post(`${URL}/user/create`, usuario)
         .subscribe( async resp => {
-          console.log(resp);
-
           // tslint:disable-next-line:no-string-literal
           if (resp['ok']) {
            // tslint:disable-next-line:no-string-literal
            await this.guardarToken(resp['token']);
+           // tslint:disable-next-line:no-string-literal
+           console.log('Token guardado', resp['token']);
            resolve(true);
           } else {
             this.token = null;
@@ -84,6 +83,7 @@ export class UsuarioService {
 
   async guardarToken(token: any) {
 
+    console.log('MI TOKEN', token);
     this.token = token;
     await this.storage.set('token', token);
 
@@ -93,6 +93,7 @@ export class UsuarioService {
 
   async cargarToken() {  // Leerlo del storage
     this.token = await this.storage.get('token') || null;
+    console.log('Obtengo el token', this.token);
   }
 
   async validaToken(): Promise<boolean> {
@@ -112,7 +113,6 @@ export class UsuarioService {
 
       this.http.get(`${URL}/user/`, { headers })
         .subscribe(resp => {
-          console.log(resp );
           // tslint:disable-next-line:no-string-literal
           if (resp['ok']) {
             // tslint:disable-next-line:no-string-literal
@@ -127,7 +127,6 @@ export class UsuarioService {
   }
 
   actualizarUsuario(usuario: Usuario) {
-
 
     const headers = new HttpHeaders({
       'x-token': this.token

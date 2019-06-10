@@ -15,14 +15,14 @@ export class LoginPage implements OnInit {
   @ViewChild('slidePrincipal') slides: IonSlides;
 
   loginUser =  {
-    email: ' test@test.com',
+    email: 'javier@techbook.com',
     password: '123456'
   };
 
   registerUser: Usuario = {
-    email: 'Test1@test.com',
+    email: '@techbook.com',
     password: '123456',
-    nombre: 'Test',
+    nombre: '',
   };
 
   constructor( private usuarioService: UsuarioService,
@@ -48,8 +48,7 @@ export class LoginPage implements OnInit {
     } else {
       this.uiService.alertaInformativa('Usuario y contraseña no son correctos');
     }
-    console.log(fLogin.valid);
-    console.log(this.loginUser);
+
   }
 
   async registro(fRegistro: NgForm) {
@@ -76,8 +75,7 @@ export class LoginPage implements OnInit {
   this.slides.slideTo(1);
   this.slides.lockSwipes(true);
   }
-  regresar() {
-  }
+
 
 
 }

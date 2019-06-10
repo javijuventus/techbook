@@ -10,26 +10,21 @@ import { Router, NavigationExtras } from '@angular/router';
 })
 export class PhoneCardComponent implements OnInit {
 
-  @Input() phone: Phone;
+  @Input() phone;
 
-  rate = 3;
   @Input() catSel: string;
 
-  categoriaSelec: string;
   constructor(private router: Router) { }
 
-  ngOnInit() {
-    this.categoriaSelec = this.catSel;
-  }
+  ngOnInit() {  }
 
   onRateChange(event) {
-    console.log(event);
   }
 
    verDetalle(phone: Phone) {
    const navigationExtras: NavigationExtras = {
     state: {
-      phone: this.phone
+      value: phone
     }
   };
    this.router.navigate(['detail-phone'], navigationExtras);

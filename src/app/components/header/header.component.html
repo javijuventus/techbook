@@ -13,13 +13,12 @@
     </ion-item>
 
     <ion-buttons slot="end">
-      <ion-button routerLink="/login" routerDirection="forward">
-        Iniciar Sesión
-        <ion-icon ios="ios-contact" md="md-contact"></ion-icon>
+      <ion-button *ngIf="" routerLink="/login" routerDirection="forward">
+        <ion-icon ios="ios-contact" md="md-contact" slot="icon-only"></ion-icon>
       </ion-button>
-      <ion-button routerLink="/" routerDirection="root">
-        Salir
-        <ion-icon name="exit"></ion-icon>
+      <ion-button (click)="logout()" color="danger"
+        routerLink="/" routerDirection="root">
+        <ion-icon slot="icon-only" name="exit"></ion-icon>
       </ion-button>
     </ion-buttons>
 

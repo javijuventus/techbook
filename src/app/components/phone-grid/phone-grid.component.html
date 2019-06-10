@@ -9,7 +9,7 @@
       *ngFor="let phone of phones; let i = index"
     >
       <app-phone-card 
-      *ngIf="categoria === 'Novedades' || categoria === 'Top Likes' || categoria === 'Top Dislikes' "
+      *ngIf=" categoria === 'Top Valorados' || categoria === 'Top Nuevos' || categoria === 'Top Likes' || categoria === 'Top Dislikes' "
       [phone]="phone"></app-phone-card>
 
       <app-top-ratings 

@@ -7,7 +7,6 @@ import { PipesModule } from '../pipes/pipes.module';
 import { IonicRatingModule } from 'ionic4-rating';
 import { DetalleComponent } from './detalle/detalle.component';
 import { TopRatingsComponent } from './top-ratings/top-ratings.component';
-import { LoginComponent } from './login/login.component';
 import { AvatarSelectorComponent } from './avatar-selector/avatar-selector.component';
 import { HeaderComponent } from './header/header.component';
 import { RouterModule } from '@angular/router';
@@ -19,7 +18,6 @@ import { RouterModule } from '@angular/router';
     PhoneGridComponent,
     DetalleComponent,
     TopRatingsComponent,
-    LoginComponent,
     AvatarSelectorComponent,
     HeaderComponent
   ],
@@ -34,7 +32,6 @@ import { RouterModule } from '@angular/router';
   [
     PhoneGridComponent,
     DetalleComponent,
-    LoginComponent,
     AvatarSelectorComponent,
     PhoneCardComponent,
     HeaderComponent

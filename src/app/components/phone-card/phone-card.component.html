@@ -1,6 +1,5 @@
-<ion-card (click)="verDetalle ( phone )">
+<ion-card (click)="verDetalle(phone)">
   <ion-card-header>
-    
     <ion-card-subtitle text-center>
       <ion-label>{{ phone.marca }}</ion-label>
     </ion-card-subtitle>
@@ -12,21 +11,25 @@
     <img [src]="phone.img[0] | imagen: phone._id | imageSanitazer" />
 
     <!-- *ngIf="categoria === 'Top Likes' || categoria === 'Novedades'"-->
-    <ion-item   > 
+    <ion-item>
       <ion-icon name="heart" color="danger"></ion-icon>
       <ion-note slot="end" color="primary">
-        <ion-badge color="primary" mode="ios">{{ phone.num_positivos }}</ion-badge>
+        <ion-badge color="primary" mode="ios">{{
+          phone.num_positivos
+        }}</ion-badge>
       </ion-note>
     </ion-item>
     <!--*ngIf="categoria === 'Top Dislikes' || categoria === 'Novedades'"-->
     <ion-item class="dislike">
       <ion-icon name="heart-dislike" color="dark"></ion-icon>
       <ion-note slot="end" color="primary">
-          <ion-badge color="primary" mode="ios" >{{ phone.num_negativos }}</ion-badge>
+        <ion-badge color="primary" mode="ios">{{
+          phone.num_negativos
+        }}</ion-badge>
       </ion-note>
     </ion-item>
     <rating
-      [rate]="rate"
+      [rate]="phone.total"
       readonly="true"
       size="default"
       (rateChange)="onRateChange($event)"

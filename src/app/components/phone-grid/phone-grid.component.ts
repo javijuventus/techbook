@@ -17,8 +17,7 @@ export class PhoneGridComponent implements OnInit {
 
   ngOnInit() {
     this.categoria = this.segment.value;
-    console.log('this.categoria', this.categoria);
-
   }
+
 
 }

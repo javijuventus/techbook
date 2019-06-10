@@ -1,8 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Phone, RespuestaMovil } from '../../interfaces/interfaces';
-import { ModalController } from '@ionic/angular';
 import { PhonesService } from '../../services/phones.service';
-import { DetalleComponent } from 'src/app/components/detalle/detalle.component';
+import { Router, NavigationExtras } from '@angular/router';
 
 @Component({
   selector: 'app-tab2',
@@ -20,7 +19,7 @@ export class Tab2Page implements OnInit {
   allPhones = [];
 
   constructor(private phonesService: PhonesService,
-              private modalCtrl: ModalController) { }
+              private router: Router) { }
   ngOnInit() { }
 
   buscar(event) {
@@ -47,17 +46,15 @@ export class Tab2Page implements OnInit {
     }
   }
 
-  async verDetalle(phone: Phone) {
 
-    const modal = await this.modalCtrl.create({
-      component: DetalleComponent,
-      componentProps: {
-        phone
-      }
-    });
-
-    modal.present();
-  }
+  verDetalle(phone: Phone) {
+    const navigationExtras: NavigationExtras = {
+     state: {
+       value: phone
+     }
+   };
+    this.router.navigate(['detail-phone'], navigationExtras);
+ }
 
   cargarTodos() {
     this.phonesService.getAllPhones().subscribe(resp => {

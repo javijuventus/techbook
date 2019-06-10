@@ -12,30 +12,34 @@ export class PhonesService {
 
   paginaPhones = 0;
 
-  categoriaActual: string;
+  categoriaActual;
 
   nuevoPhone = new EventEmitter<Phone>();
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient) {
+    this.categoriaActual = 'Top Valorados';
+   }
 
   getAllPhones() {
-    return this.http.get<RespuestaMovil>(`${URL}/phones/latest`);
+    return this.http.get<RespuestaMovil>(`${URL}/phones/popular`);
   }
 
   getTopHeadlinesCategoria(categoria: string, phoneId?: string) {
-
     if (this.categoriaActual === categoria) {
       this.paginaPhones++;
     } else {
       this.paginaPhones = 1;
       this.categoriaActual = categoria;
     }
-    let query: string;
+    let query = 'phones/popular';
 
     switch (categoria) {
 
-      case 'Novedades':
-        query = 'phones/last';
+      case 'Top Valorados':
+        query = 'phones/popular';
+        break;
+        case 'Top Nuevos':
+        query = 'phones/latest';
         break;
       case 'Top Likes':
         query = 'phones/likes';
@@ -58,6 +62,8 @@ export class PhonesService {
       case 'Top Batería':
         query = 'phones/bateria';
         break;
+        default:
+          query = 'phones/popular';
     }
     return this.http.get<RespuestaMovil>(`${URL}/${query}/?pagina=${this.paginaPhones}`);
   }

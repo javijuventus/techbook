@@ -1,6 +1,6 @@
 import { Component, OnInit, ViewChild, Output, EventEmitter } from '@angular/core';
 import { PhonesService } from '../../services/phones.service';
-import { Phone } from '../../interfaces/interfaces';
+import { Phone, RespuestaMovil } from '../../interfaces/interfaces';
 import { IonSegment, IonContent, IonInfiniteScroll, ModalController } from '@ionic/angular';
 
 
@@ -15,7 +15,8 @@ export class Tab1Page implements OnInit {
   @ViewChild(IonInfiniteScroll) infiniteScroll: IonInfiniteScroll;
   @ViewChild(IonContent) content: IonContent;
 
-  categorias = ['Novedades', 'Top Likes', 'Top Dislikes', 'Top Cámara', 'Top CPU', 'Top Pantalla', 'Top Diseño', 'Top Batería'];
+  // tslint:disable-next-line:max-line-length
+  categorias = ['Top Valorados', 'Top Nuevos', 'Top Likes', 'Top Dislikes', 'Top Cámara', 'Top CPU', 'Top Pantalla', 'Top Diseño', 'Top Batería'];
 
   categoriaActual;
 
@@ -27,10 +28,9 @@ export class Tab1Page implements OnInit {
   constructor(private phonesService: PhonesService) { }
 
   ngOnInit() {
-    this.segment.value = this.categorias[1];
-    this.categoriaActual = this.categorias[1];
+    this.segment.value = this.categorias[0];
 
-    this.cargarPhones(this.categorias[1]);
+    this.cargarPhones(this.categorias[0]);
   }
 
   loadData(event) {
@@ -38,17 +38,18 @@ export class Tab1Page implements OnInit {
 
   }
 
-  cambioCategoria(event) {
+  cambioCategoria( event ) {
+    console.log(event.detail.value);
     this.categoriaActual = event.detail.value;
     this.phones = [];
     this.infiniteScroll.disabled = false;
-    this.cargarPhones(this.categoriaActual);
-    this.categoria.emit(this.categoriaActual);
+    this.cargarPhones(event.detail.value);
+    this.categoria.emit(event.detail.value);
     this.content.scrollToTop();
   }
 
   cargarPhones(categoria: string, event?) {
-    this.phonesService.getTopHeadlinesCategoria(this.categoriaActual).subscribe(data => {
+    this.phonesService.getTopHeadlinesCategoria(this.categoriaActual).subscribe((data: RespuestaMovil) => {
       this.phones.push(...data.phones);
       if (data.phones.length === 0) {
         event.target.disabled = true;

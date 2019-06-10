@@ -10,7 +10,6 @@ export interface Phone {
   img: any[];
   num_positivos: number;
   num_negativos: number;
-  ratingGlobal: number;
   _id: string;
   marca: string;
   modelo: string;
@@ -20,6 +19,8 @@ export interface Phone {
   ram: string;
   almacenamiento: string;
   bateria: string;
+  valoraciones: Valoraciones;
+  total?: number;
   created: string;
   __v: number;
 }
@@ -31,6 +32,15 @@ export interface Camara {
   trasera3?: string;
 }
 
+export interface Valoraciones {
+  avg_camara: number;
+  avg_pantalla: number;
+  avg_aspecto: number;
+  avg_bateria: number;
+  avg_cpu: number;
+
+}
+
 export interface Usuario {
   avatar?: string;
   _id?: string;
@@ -38,3 +48,5 @@ export interface Usuario {
   password?: string;
   email?: string;
 }
+
+
