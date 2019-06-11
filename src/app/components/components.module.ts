@@ -9,22 +9,31 @@ import { TopRatingsComponent } from './top-ratings/top-ratings.component';
 import { AvatarSelectorComponent } from './avatar-selector/avatar-selector.component';
 import { HeaderComponent } from './header/header.component';
 import { RouterModule } from '@angular/router';
-
+import { VotacionComponent } from './votacion/votacion.component';
+import { ComentariosComponent } from './comentarios/comentarios.component';
+import { FormsModule } from '@angular/forms';
 
 @NgModule({
+  entryComponents: [
+    ComentariosComponent,
+    VotacionComponent
+  ],
   declarations: [
     PhoneCardComponent,
     PhoneGridComponent,
     TopRatingsComponent,
     AvatarSelectorComponent,
     HeaderComponent,
+    VotacionComponent,
+    ComentariosComponent
   ],
   imports: [
     CommonModule,
     IonicModule,
     PipesModule,
     IonicRatingModule,
-    RouterModule
+    RouterModule,
+    FormsModule
   ],
   exports:
   [
@@ -32,6 +41,7 @@ import { RouterModule } from '@angular/router';
     AvatarSelectorComponent,
     PhoneCardComponent,
     HeaderComponent,
+    ComentariosComponent,
   ]
 })
 export class ComponentsModule { }

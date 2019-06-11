@@ -1,3 +1,65 @@
-<p>
-  comentarios works!
-</p>
+<!-- Refresher -->
+<ion-refresher
+slot="fixed"
+[disabled]="!refresh"
+(ionRefresh)="recargar( $event )"
+>
+<ion-refresher-content></ion-refresher-content>
+</ion-refresher>
+<ion-card *ngFor="let rating of ratings">
+  <ion-item color="dark">
+    <ion-avatar item-start>
+      <img
+        *ngIf="rating.usuario !== null"
+        src="../../../assets/avatars/{{ rating.usuario.avatar }}"
+      />
+    </ion-avatar>
+    <h2 *ngIf="rating.usuario !== null">{{ rating.usuario.nombre }}</h2>
+    <ion-note slot="end">
+      {{ rating._created | date }}
+    </ion-note>
+  </ion-item>
+  <ion-card-content>
+    <p>{{ rating.post }}</p>
+  </ion-card-content>
+
+  <ion-row>
+    <ion-col>
+      <ion-button size="small" color="tertiary">
+        <ion-icon name="camera"  slot="end"></ion-icon>
+        <div>{{ rating.val_camara }}</div>
+      </ion-button>
+    </ion-col>
+    <ion-col>
+      <ion-button size="small" color="tertiary">
+        <ion-icon name="settings"  slot="end"></ion-icon>
+        <div>{{ rating.val_cpu }}</div>
+      </ion-button>
+    </ion-col>
+    <ion-col>
+      <ion-button size="small" color="tertiary">
+        <ion-icon name="tv"  slot="end"></ion-icon>
+        <div>{{ rating.val_pantalla }}</div>
+      </ion-button>
+    </ion-col>
+    <ion-col>
+      <ion-button size="small" color="tertiary">
+        <ion-icon name="battery-charging" slot="end"></ion-icon>
+        <div>{{ rating.val_bateria }}</div>
+      </ion-button>
+    </ion-col>
+    <ion-col>
+      <ion-button size="small" color="tertiary">
+        <ion-icon name="phone-portrait"  slot="end"></ion-icon>
+        <div>{{ rating.val_aspecto }}</div>
+      </ion-button>
+    </ion-col>
+  </ion-row>
+</ion-card>
+<ion-infinite-scroll
+    threshold="150px"
+    (ionInfinite)="loadData($event)"
+  >
+  <ion-infinite-scroll-content color="light" loadingSpinner="crescent" loadingText="Cargando data...">
+    </ion-infinite-scroll-content>
+  </ion-infinite-scroll>

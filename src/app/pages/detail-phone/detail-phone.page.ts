@@ -1,8 +1,13 @@
-import { Component, OnInit, Input } from '@angular/core';
-import { Router, ActivatedRoute, Params } from '@angular/router';
+import { Component, OnInit } from '@angular/core';
+import { Router, ActivatedRoute } from '@angular/router';
 import { PhonesService } from '../../services/phones.service';
 import { Location } from '@angular/common';
-import { Phone } from 'src/app/interfaces/interfaces';
+import { Phone, Rating } from 'src/app/interfaces/interfaces';
+import { ModalController } from '@ionic/angular';
+import { VotacionComponent } from '../../components/votacion/votacion.component';
+import { UsuarioService } from '../../services/usuario.service';
+import { UiServiceService } from '../../services/ui-service.service';
+import { RatingsService } from '../../services/ratings.service';
 
 @Component({
   selector: 'app-detail-phone',
@@ -16,9 +21,14 @@ export class DetailPhonePage implements OnInit {
   avatarSlide = {
     slidesPerView: 3.5
   };
+  rating = {};
 
   constructor(private route: ActivatedRoute, private location: Location,
-              private router: Router, private phoneService: PhonesService) {
+              private router: Router, private phoneService: PhonesService,
+              private modalController: ModalController,
+              private usuarioService: UsuarioService,
+              private uiService: UiServiceService,
+              private ratingService: RatingsService) {
 
     this.route.queryParams.subscribe(params => {
       if (this.router.getCurrentNavigation().extras.state) {
@@ -27,6 +37,11 @@ export class DetailPhonePage implements OnInit {
 
       }
     });
+
+    if (this.usuarioService.token === null) {
+      this.uiService.presentToast('Redirección controlada a inicio..');
+      this.regresar();
+    }
   }
 
   ngOnInit() {
@@ -37,6 +52,17 @@ export class DetailPhonePage implements OnInit {
     if (this.phone === undefined) {
       this.regresar();
     }
+    const data: any = this.usuarioService.getUsuario();
+    if (data.usuario !== undefined) {
+
+      this.ratingService.comprobarVotaciones(this.phone._id, data.usuario._id)
+        .subscribe(res => {
+          if (res !== null) {
+            this.rating = res;
+          }
+        });
+    }
+
   }
 
   regresar() {
@@ -44,7 +70,26 @@ export class DetailPhonePage implements OnInit {
     this.location.back();
   }
 
-  onRateChange($event) {
+  async abrirModalComentario() {
+    const votoModal = this.modalController.create({
+      component: VotacionComponent,
+      componentProps: {
+        phone: this.phone,
+        rating: this.rating
+      },
+      cssClass: 'myModal'
+    });
+
+    await votoModal.then(modal => {
+      modal.present();
+    });
+
+    await votoModal.then(modal => {
+      const rating = modal.onDidDismiss();
+      rating.then(res => {
+      });
+    });
+
   }
 
 }

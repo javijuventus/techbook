@@ -9,7 +9,7 @@
   </ion-toolbar>
 </ion-header>
 
-<ion-content padding>
+<ion-content>
   <ion-card>
     <ion-card-header>
       <img
@@ -106,7 +106,6 @@
               [rate]="phone.valoraciones.avg_aspecto"
               readonly="true"
               size="default"
-              (rateChange)="onRateChange($event)"
             >
             </rating>
           </ion-item>
@@ -118,7 +117,6 @@
               [rate]="phone.valoraciones.avg_bateria"
               readonly="true"
               size="default"
-              (rateChange)="onRateChange($event)"
             >
             </rating>
           </ion-item>
@@ -130,7 +128,6 @@
               [rate]="phone.valoraciones.avg_camara"
               readonly="true"
               size="default"
-              (rateChange)="onRateChange($event)"
             >
             </rating>
           </ion-item>
@@ -142,7 +139,6 @@
               [rate]="phone.valoraciones.avg_cpu"
               readonly="true"
               size="default"
-              (rateChange)="onRateChange($event)"
             >
             </rating>
           </ion-item>
@@ -154,7 +150,6 @@
               [rate]="phone.valoraciones.avg_pantalla"
               readonly="true"
               size="default"
-              (rateChange)="onRateChange($event)"
             >
             </rating>
           </ion-item>
@@ -162,9 +157,13 @@
       </ion-list>
     </ion-card-content>
   </ion-card>
+  
+  <app-comentarios [phone]="phone"></app-comentarios>
+  
   <ion-fab vertical="bottom" horizontal="end" slot="fixed">
-    <ion-fab-button color="danger">
+    <ion-fab-button color="danger" (click)="abrirModalComentario()">
       <ion-icon name="create"></ion-icon>
     </ion-fab-button>
   </ion-fab>
+  
 </ion-content>

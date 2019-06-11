@@ -3,6 +3,8 @@ export interface RespuestaMovil {
   pagina?: number;
   phones: Phone[];
   camara?: Camara;
+  usuario?: Usuario;
+  ratings?: Rating[];
 }
 
 export interface Phone {
@@ -49,4 +51,18 @@ export interface Usuario {
   email?: string;
 }
 
-
+export interface Rating {
+  _id?: string;
+  post: string;
+  positivo: boolean;
+  negativo: boolean;
+  val_pantalla: number;
+  val_cpu: number;
+  val_aspecto: number;
+  val_camara: number;
+  val_bateria: number;
+  usuario?: Usuario;
+  phone?: string;
+  created?: string;
+  __v?: number;
+}
