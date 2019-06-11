@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 import { Phone } from '../../interfaces/interfaces';
 import { Router, NavigationExtras } from '@angular/router';
 import { PhonesService } from '../../services/phones.service';

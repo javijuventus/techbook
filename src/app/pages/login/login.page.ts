@@ -55,6 +55,8 @@ export class LoginPage implements OnInit {
 
     if ( fRegistro.invalid ) { return; }
 
+    const lowerEmail = this.registerUser.email.toLowerCase();
+    this.registerUser.email = lowerEmail;
     const valido = await this.usuarioService.registro( this.registerUser );
 
     if ( valido ) {

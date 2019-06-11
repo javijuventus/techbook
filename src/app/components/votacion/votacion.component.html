@@ -13,13 +13,13 @@
 
   <ion-content padding>
 <ion-grid fixed>
-  <form (ngSubmit)="emitirVoto()" #fVotacion="ngForm" *ngIf="newRating.created === undefined ">
+  <form (ngSubmit)="emitirVoto(fVotacion)" #fVotacion="ngForm" *ngIf="newRating._id === undefined ">
     <ion-row>
       <ion-col>
         <ion-list>
           <ion-item>
             <ion-label position="floating">Mensaje</ion-label>
-            <ion-textarea name="post" [(ngModel)]="newRating.post"></ion-textarea>
+            <ion-textarea name="post" [(ngModel)]="newRating.post" required></ion-textarea>
           </ion-item>
             <ion-item>
                 <ion-label>Me gusta</ion-label>
@@ -102,13 +102,13 @@
       </ion-col>
     </ion-row>
 </form>
-  <form (ngSubmit)="updateVoto()" #fVotacion2="ngForm" *ngIf="newRating.created !== undefined">
+  <form (ngSubmit)="updateVoto(fVotacion2)" #fVotacion2="ngForm" *ngIf="newRating._id !== undefined">
       <ion-row>
         <ion-col>
           <ion-list>
             <ion-item>
               <ion-label position="floating">Mensaje</ion-label>
-              <ion-textarea name="post" [(ngModel)]="newRating.post"></ion-textarea>
+              <ion-textarea name="post" [(ngModel)]="newRating.post" required></ion-textarea>
             </ion-item>
               <ion-item>
                   <ion-label>Me gusta</ion-label>

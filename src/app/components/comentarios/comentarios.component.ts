@@ -19,13 +19,13 @@ export class ComentariosComponent implements OnInit {
   ratings;
 
 
-  constructor(private ratingService: RatingsService ) { }
+  constructor(private ratingService: RatingsService ) {}
 
   ngOnInit(  ) {
 
     this.siguientes();
     this.ratingService.nuevoRating.subscribe( post => {
-      this.ratings.unshift(post);
+      this.ratings = null;
     });
 
     this.cargarComentarios(this.phone._id);

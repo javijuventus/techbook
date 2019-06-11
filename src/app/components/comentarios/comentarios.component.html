@@ -10,13 +10,13 @@ slot="fixed"
   <ion-item color="dark">
     <ion-avatar item-start>
       <img
-        *ngIf="rating.usuario !== null"
+        *ngIf="rating !== undefined || rating.usuario !== undefined"
         src="../../../assets/avatars/{{ rating.usuario.avatar }}"
       />
     </ion-avatar>
-    <h2 *ngIf="rating.usuario !== null">{{ rating.usuario.nombre }}</h2>
+    <h2 *ngIf="rating !== undefined || rating.usuario !== undefined">{{ rating.usuario.nombre }}</h2>
     <ion-note slot="end">
-      {{ rating._created | date }}
+      {{ rating._created }}
     </ion-note>
   </ion-item>
   <ion-card-content>

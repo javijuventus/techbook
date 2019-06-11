@@ -5,8 +5,6 @@ import { NgForm } from '@angular/forms';
 import { RatingsService } from '../../services/ratings.service';
 import { PhonesService } from '../../services/phones.service';
 import { UiServiceService } from '../../services/ui-service.service';
-import { UsuarioService } from '../../services/usuario.service';
-import { Location } from '@angular/common';
 
 @Component({
   selector: 'app-votacion',
@@ -20,21 +18,21 @@ export class VotacionComponent implements OnInit {
   phoneId: string;
   phone: Phone;
   newRating: Rating = {
-    post : '',
+    post: '',
     positivo: false,
     negativo: false,
-    val_pantalla : 0,
+    val_pantalla: 0,
     val_cpu: 0,
     val_aspecto: 0,
     val_camara: 0,
     val_bateria: 0
   };
 
-  constructor( private navParams: NavParams,
-               private ratingService: RatingsService,
-               private modalController: ModalController,
-               private phoneService: PhonesService,
-               private uiService: UiServiceService ) {}
+  constructor(private navParams: NavParams,
+              private ratingService: RatingsService,
+              private modalController: ModalController,
+              private phoneService: PhonesService,
+              private uiService: UiServiceService) { }
 
   ngOnInit() {
     this.phone = this.navParams.get('phone');
@@ -47,42 +45,51 @@ export class VotacionComponent implements OnInit {
     this.newRating.phone = this.phoneId;
   }
 
-  async emitirVoto() {
+  async emitirVoto(fVotacion: NgForm) {
 
-    await this.ratingService.crearRating( this.newRating ).then( res => {
+    if (!fVotacion.valid) {
+      this.uiService.alertaInformativa('El mensaje del Post es obligatorio.');
+      return;
+    }
+    await this.ratingService.crearRating(this.newRating).then((res) => {
+      this.ratingService.nuevoRating.emit(this.newRating);
       this.uiService.presentToast('Voto emitido correctamente');
       this.modalController.dismiss({
-      rating: this.newRating
+        rating: this.newRating
       });
-    }).catch( err => {
+    }).catch(err => {
       this.uiService.alertaInformativa('Fallo inesperado al guardar');
     });
-}
-async updateVoto() {
-
-  await this.ratingService.updateRating( this.newRating )
-    .subscribe(data => {
-      this.uiService.presentToast('Voto modificado correctamente');
-      this.modalController.dismiss({
-      rating: this.newRating
-      });
-    });
-}
-
-onChangeHandler( event) {
-
-  const data = event.target.value;
-  if (data) {
-    this.newRating.positivo = true;
-    this.newRating.negativo = false;
-  } else {
-    this.newRating.negativo = true;
-    this.newRating.negativo = false;
   }
-}
+  async updateVoto(fVotacion2: NgForm) {
+    if (!fVotacion2.valid) {
+      this.uiService.alertaInformativa('El mensaje del Post es obligatorio.');
+      return;
+    }
+    await this.ratingService.updateRating(this.newRating)
+      .subscribe(data => {
+        this.uiService.presentToast('Voto modificado correctamente');
+        this.ratingService.nuevoRating.emit(this.newRating);
+        this.modalController.dismiss({
+          rating: this.newRating
+        });
+      });
+  }
 
-regresar() {
-  this.modalController.dismiss();
-}
+  onChangeHandler(event) {
+
+    const data = event.target.value;
+    if (data) {
+      this.newRating.positivo = true;
+      this.newRating.negativo = false;
+    } else {
+      this.newRating.negativo = true;
+      this.newRating.negativo = false;
+    }
+  }
+
+  regresar() {
+    this.modalController.dismiss();
+  }
 
 }
