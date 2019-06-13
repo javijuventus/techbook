@@ -50,10 +50,14 @@ export class RatingsService {
 
     const categorias = ['pantalla', 'camara', 'bateria', 'aspecto', 'cpu'];
 
+    const headers = new HttpHeaders({
+      'x-token': this.usuarioService.token
+    });
+
     await categorias.forEach(categoria => {
 
       return new Promise(async resolve => {
-        await this.http.get(`${URL}/ratings/${categoria}/${phoneId}`)
+         this.http.get(`${URL}/ratings/avg/${categoria}/${phoneId}`, { headers })
           .subscribe(resp => {
             resolve(true);
           });

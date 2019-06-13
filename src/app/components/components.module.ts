@@ -12,6 +12,7 @@ import { RouterModule } from '@angular/router';
 import { VotacionComponent } from './votacion/votacion.component';
 import { ComentariosComponent } from './comentarios/comentarios.component';
 import { FormsModule } from '@angular/forms';
+import { ReactiveFormsModule } from '@angular/forms';
 
 @NgModule({
   entryComponents: [
@@ -29,6 +30,7 @@ import { FormsModule } from '@angular/forms';
   ],
   imports: [
     CommonModule,
+    ReactiveFormsModule.withConfig({warnOnNgModelWithFormControl: 'never'}),
     IonicModule,
     PipesModule,
     IonicRatingModule,

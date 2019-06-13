@@ -71,7 +71,7 @@ export class DetailPhonePage implements OnInit {
   }
 
   async abrirModalComentario() {
-    const votoModal = this.modalController.create({
+    const modal = await this.modalController.create({
       component: VotacionComponent,
       componentProps: {
         phone: this.phone,
@@ -80,16 +80,15 @@ export class DetailPhonePage implements OnInit {
       cssClass: 'myModal'
     });
 
-    await votoModal.then(modal => {
-      modal.present();
+    modal.onDidDismiss()
+      .then((res) => {
+        if ( res. data ) {
+          const data = res.data;
+          console.log('respuesta', data.rating);
+        }
     });
 
-    await votoModal.then(modal => {
-      const rating = modal.onDidDismiss();
-      rating.then(res => {
-      });
-    });
+    return await modal.present();
 
   }
-
 }

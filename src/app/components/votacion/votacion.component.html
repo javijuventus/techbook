@@ -13,21 +13,28 @@
 
   <ion-content padding>
 <ion-grid fixed>
-  <form (ngSubmit)="emitirVoto(fVotacion)" #fVotacion="ngForm" *ngIf="newRating._id === undefined ">
+  <form [formGroup]="formEmitirVoto">
     <ion-row>
       <ion-col>
         <ion-list>
           <ion-item>
             <ion-label position="floating">Mensaje</ion-label>
-            <ion-textarea name="post" [(ngModel)]="newRating.post" required></ion-textarea>
+            <ion-textarea formControlName="post" [(ngModel)]="newRating.post">
+            </ion-textarea>
+          </ion-item>
+          <ion-item  *ngIf="!formEmitirVoto.get('post').valid  && (formEmitirVoto.get('post').dirty || submitAttempt)">
+              <p class="error-comment">* Debes escribir comentario.</p>
           </ion-item>
             <ion-item>
                 <ion-label>Me gusta</ion-label>
-                <ion-checkbox name="positivo" [disabled]="newRating.negativo" color="danger" [(ngModel)]="newRating.positivo"></ion-checkbox>
+                <ion-checkbox formControlName="positivo" color="danger" [(ngModel)]="newRating.positivo" (onChangeHandler)="onChangeHandler($event)"
+                [disabled]="newRating.negativo"></ion-checkbox>
               </ion-item>
-            <ion-item>
+            <ion-item >
               <ion-label>No me gusta</ion-label>
-              <ion-checkbox name="negativo" [disabled]="newRating.positivo" color="dark" [(ngModel)]="newRating.negativo"></ion-checkbox>
+              <ion-checkbox formControlName="negativo"
+              [disabled]="newRating.positivo"
+               color="dark" [(ngModel)]="newRating.negativo" (onChangeHandler)="onChangeHandler($event)"></ion-checkbox>
             </ion-item>
           <ion-item-group>
             <ion-list-header>
@@ -35,7 +42,7 @@
             </ion-list-header>
             <ion-item>
               <rating
-              name="aspecto"
+              formControlName="aspecto"
               [(ngModel)]="newRating.val_aspecto"
                 readonly="false"
                 size="default"
@@ -47,7 +54,7 @@
             </ion-list-header>
             <ion-item>
               <rating
-              name="bateria"
+              formControlName="bateria"
               [(ngModel)]="newRating.val_bateria"
                 readonly="false"
                 size="default"
@@ -59,7 +66,7 @@
             </ion-list-header>
             <ion-item>
               <rating
-              name="camara"
+              formControlName="camara"
               [(ngModel)]="newRating.val_camara"
                 readonly="false"
                 size="default"
@@ -71,7 +78,7 @@
             </ion-list-header>
             <ion-item>
               <rating
-              name="cpu"
+              formControlName="cpu"
               [(ngModel)]="newRating.val_cpu"
                 readonly="false"
                 size="default"
@@ -83,7 +90,7 @@
             </ion-list-header>
             <ion-item>
               <rating
-                name="pantalla"
+              formControlName="pantalla"
                 [(ngModel)]="newRating.val_pantalla"
                 readonly="false"
                 size="default"
@@ -96,101 +103,16 @@
     </ion-row>
     <ion-row>
       <ion-col text-center>
-        <ion-button type="submit" color="tertiary" shape="round" expand="block">
-          Votar
-        </ion-button>
+          <ion-button *ngIf="newRating._id !== undefined" type="submit" (click)="updateVoto()" color="tertiary" shape="round" expand="block">
+              Modificar
+            </ion-button>
+            <ion-button *ngIf="newRating._id === undefined" type="submit" (click)="emitirVoto()" color="tertiary" shape="round" expand="block">
+                Votar
+              </ion-button>
       </ion-col>
     </ion-row>
 </form>
-  <form (ngSubmit)="updateVoto(fVotacion2)" #fVotacion2="ngForm" *ngIf="newRating._id !== undefined">
-      <ion-row>
-        <ion-col>
-          <ion-list>
-            <ion-item>
-              <ion-label position="floating">Mensaje</ion-label>
-              <ion-textarea name="post" [(ngModel)]="newRating.post" required></ion-textarea>
-            </ion-item>
-              <ion-item>
-                  <ion-label>Me gusta</ion-label>
-                  <ion-checkbox name="positivo" [disabled]="newRating.negativo" color="danger" [(ngModel)]="newRating.positivo"></ion-checkbox>
-                </ion-item>
-              <ion-item>
-                <ion-label>No me gusta</ion-label>
-                <ion-checkbox name="negativo" [disabled]="newRating.positivo" color="dark" [(ngModel)]="newRating.negativo"></ion-checkbox>
-              </ion-item>
-            <ion-item-group>
-              <ion-list-header>
-                Diseño
-              </ion-list-header>
-              <ion-item>
-                <rating
-                name="aspecto"
-                [(ngModel)]="newRating.val_aspecto"
-                  readonly="false"
-                  size="default"
-                >
-                </rating>
-              </ion-item>
-              <ion-list-header>
-                Bateria
-              </ion-list-header>
-              <ion-item>
-                <rating
-                name="bateria"
-                [(ngModel)]="newRating.val_bateria"
-                  readonly="false"
-                  size="default"
-                >
-                </rating>
-              </ion-item>
-              <ion-list-header>
-                Cámara
-              </ion-list-header>
-              <ion-item>
-                <rating
-                name="camara"
-                [(ngModel)]="newRating.val_camara"
-                  readonly="false"
-                  size="default"
-                >
-                </rating>
-              </ion-item>
-              <ion-list-header>
-                Procesador
-              </ion-list-header>
-              <ion-item>
-                <rating
-                name="cpu"
-                [(ngModel)]="newRating.val_cpu"
-                  readonly="false"
-                  size="default"
-                >
-                </rating>
-              </ion-item>
-              <ion-list-header>
-                Pantalla
-              </ion-list-header>
-              <ion-item>
-                <rating
-                  name="pantalla"
-                  [(ngModel)]="newRating.val_pantalla"
-                  readonly="false"
-                  size="default"
-                >
-                </rating>
-              </ion-item>
-            </ion-item-group>
-          </ion-list>
-        </ion-col>
-      </ion-row>
-      <ion-row>
-        <ion-col text-center>
-          <ion-button type="submit" color="tertiary" shape="round" expand="block">
-            Modificar
-          </ion-button>
-        </ion-col>
-      </ion-row>
-    </form>
+ 
 </ion-grid>
 
 </ion-content>
