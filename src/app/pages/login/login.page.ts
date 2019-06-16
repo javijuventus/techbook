@@ -4,6 +4,8 @@ import { Usuario } from 'src/app/interfaces/interfaces';
 import { UsuarioService } from 'src/app/services/usuario.service';
 import { UiServiceService } from 'src/app/services/ui-service.service';
 import { NgForm, FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { PasswordValidation } from '../../validators/password-validation';
+import { EmailValidation } from '../../validators/email-validation';
 
 @Component({
   selector: 'app-login',
@@ -17,7 +19,7 @@ export class LoginPage implements OnInit {
   formSignin: FormGroup;
   formSignup: FormGroup;
 
-  public submitAttempt = false;
+  submitAttempt = false;
 
   loginUser = {
     email: 'javier@techbook.com',
@@ -31,53 +33,69 @@ export class LoginPage implements OnInit {
   };
 
   constructor(private usuarioService: UsuarioService,
-              private navCtrl: NavController,
-              private uiService: UiServiceService,
-              public formBuilder: FormBuilder) {
-
-    this.formSignin = formBuilder.group({
-      email: ['', Validators.compose([Validators.required, Validators.email])],
-      password: ['', Validators.required]
-    });
-
-    this.formSignup = formBuilder.group({
-      nombre: ['', Validators.compose([Validators.maxLength(30), Validators.pattern('[a-zA-Z ]*'), Validators.required])],
-      email: ['', Validators.compose([Validators.required, Validators.email])],
-      password: ['', Validators.required]
-    });
-  }
+    private navCtrl: NavController,
+    private uiService: UiServiceService,
+    public formBuilder: FormBuilder) { }
 
   ngOnInit() {
-
+    this.createForm();
     this.slides.lockSwipes(true);
   }
 
+  createForm() {
+    this.formSignin = this.formBuilder.group({
+      email: ['', Validators.compose([Validators.required, Validators.email])],
+      password: ['', Validators.required]
+    });
+
+    this.formSignup = this.formBuilder.group({
+      nombre: ['', Validators.compose([Validators.maxLength(30), Validators.required])],
+      email: ['', Validators.compose([Validators.required, Validators.email])],
+      emailConfirm: ['', Validators.compose([Validators.required, Validators.email])],
+      password: ['', Validators.required],
+      passwordConfirm: ['', Validators.required]
+    }, {
+        validator: [PasswordValidation.MatchPassword, EmailValidation.MatchEmail]
+      }
+    );
+  }
+
+  get email() {
+    return this.formSignup.get('email');
+  }
+  get emailConfirm() {
+    return this.formSignup.get('emailConfirm');
+  }
+  get nombre() {
+    return this.formSignup.get('nombre');
+  }
+  get password() {
+    return this.formSignup.get('password');
+  }
+  get pwConfirm() {
+    return this.formSignup.get('passwordConfirm');
+  }
+
   async login() {
-
     if (this.formSignin.valid) {
-      const valido = await this.usuarioService.login(this.loginUser.email, this.loginUser.password);
-
-      if (valido) {
-        this.submitAttempt = true;
+      const loginValid = await this.usuarioService.login(this.loginUser.email, this.loginUser.password);
+      if (loginValid) {
         this.navCtrl.navigateRoot('/main/tabs/tab1', { animated: true });
         this.uiService.presentToast('Login Correcto. Bienvenido');
       } else {
         this.uiService.alertaInformativa('Usuario y contraseña no son correctos');
       }
     }
-
   }
 
   async registro() {
 
     if (this.formSignup.valid) {
-
       const lowerEmail = this.registerUser.email.toLowerCase();
       this.registerUser.email = lowerEmail;
       const valido = await this.usuarioService.registro(this.registerUser);
 
       if (valido) {
-        this.submitAttempt = true;
         this.navCtrl.navigateRoot('/main/tabs/tab1', { animated: true });
       } else {
         this.uiService.alertaInformativa('Ese correo electrónico ya existe.');

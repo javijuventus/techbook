@@ -21,7 +21,8 @@ const routes: Routes = [
     IonicModule,
     ComponentsModule,
     RouterModule.forChild(routes),
-    ReactiveFormsModule
+    ReactiveFormsModule.withConfig({warnOnNgModelWithFormControl: 'never'}),
+
   ],
   declarations: [LoginPage]
 })

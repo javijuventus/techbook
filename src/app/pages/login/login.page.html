@@ -15,7 +15,7 @@
 <ion-content>
   <ion-slides class="mainSlide" #slidePrincipal>
     <ion-slide>
-      <form (ngSubmit)="login(fLogin)" #fLogin="ngForm" [formGroup]="formSignin">
+      <form [formGroup]="formSignin">
         <ion-grid fixed>
           <ion-row>
             <ion-col>
@@ -32,7 +32,7 @@
             <ion-col>
               <ion-list>
                 <ion-item>
-                  <ion-label>Email</ion-label>
+                  <ion-label position="floating">Email</ion-label>
                   <ion-input
                     formControlName="email"
                     [(ngModel)]="loginUser.email"
@@ -40,7 +40,7 @@
                   ></ion-input>
                 </ion-item>
                 <ion-item>
-                  <ion-label>Password</ion-label>
+                  <ion-label position="floating">Password</ion-label>
                   <ion-input
                     formControlName="password"
                     type="password"
@@ -53,7 +53,7 @@
 
           <ion-row>
             <ion-col>
-              <ion-button type="submit" color="tertiary" shape="round">
+              <ion-button type="submit" color="tertiary" shape="round" (click)="login()">
                 Login
               </ion-button>
             </ion-col>
@@ -68,44 +68,71 @@
         <!--Avatar selector -->
         <app-avatar-selector (avatarSeleccionado)="registerUser.avatar = $event"></app-avatar-selector>
         
-        <form (ngSubmit)="registro(fRegistro)" #fRegistro="ngForm" [formGroup]="formSignup">
+        <form [formGroup]="formSignup">
           <ion-row>
             <ion-col>
               <ion-list>
                 <ion-item>
-                  <ion-label>Email</ion-label>
+                  <ion-label position="floating">Email</ion-label>
                   <ion-input
                     formControlName="email"
                     [(ngModel)]="registerUser.email"
                   ></ion-input>
                 </ion-item>
-                <ion-item *ngIf="!formSignup.get('nombre').valid && (formSignup.get('nombre').dirty || submitAttempt)">
-                    <p>Introduzca un nombre correcto</p>
-                </ion-item>
+                <ion-item *ngIf="email.invalid && (email.dirty || email.touched)">
+                  <p class="error-comment" *ngIf="email.errors['email']">Debe ser un email válido</p>
+              </ion-item>
+              <ion-item>
+                <ion-label position="floating">Confirmar Email</ion-label>
+                <ion-input
+                  formControlName="emailConfirm"
+                ></ion-input>
+              </ion-item>
+              <ion-item *ngIf="emailConfirm.invalid && (emailConfirm.dirty || emailConfirm.touched)">
+                <p class="error-comment" *ngIf="emailConfirm.errors['required']"> Confirmar email es obligatorio</p>
+                <p class="error-comment" *ngIf="emailConfirm.errors['MatchPassword']">Los emails no coinciden</p>
+                <p class="error-comment" *ngIf="emailConfirm.errors['email']">Debe ser un email válido</p>
+            </ion-item>
                 <ion-item>
-                  <ion-label>Nombre</ion-label>
+                  <ion-label position="floating">Nombre</ion-label>
                   <ion-input
                     formControlName="nombre"
                     type="text"
                     [(ngModel)]="registerUser.nombre"
                   ></ion-input>
                 </ion-item>
-
+                <ion-item *ngIf="nombre.invalid && (nombre.dirty || nombre.touched)">
+                  <p class="error-comment">Introduzca un nombre correcto</p>
+              </ion-item>
                 <ion-item>
-                  <ion-label>Password</ion-label>
+                  <ion-label position="floating">Password</ion-label>
                   <ion-input
                     formControlName="password"
                     type="password"
                     [(ngModel)]="registerUser.password"
                   ></ion-input>
                 </ion-item>
+                <ion-item *ngIf="password.invalid && (password.dirty || password.touched)">
+                  <p class="error-comment">Introduzca una contraseña</p>
+              </ion-item>
+                <ion-item>
+                  <ion-label position="floating">Confirma Password</ion-label>
+                  <ion-input
+                    formControlName="passwordConfirm"
+                    id="passwordConfirm"
+                    type="password"
+                  ></ion-input>
+                </ion-item>
+                <ion-item *ngIf="pwConfirm.invalid && (pwConfirm.dirty || pwConfirm.touched)">
+                  <p class="error-comment">Las contraseñas no coinciden</p>
+              </ion-item>
               </ion-list>
             </ion-col>
           </ion-row>
 
           <ion-row>
             <ion-col>
-              <ion-button type="submit" color="tertiary" shape="round">
+              <ion-button type="submit" [disabled]="formSignup.invalid" color="tertiary" shape="round" (click)="registro()">
                 Crear usuario
               </ion-button>
             </ion-col>
